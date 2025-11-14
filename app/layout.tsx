@@ -1,31 +1,57 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
-import { AuthSessionProvider } from "@/components/providers/session-provider"
-import { Suspense } from "react"
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
+
+import "@mantine/core/styles.css";
+
+import { MantineProvider } from "@mantine/core";
+
+//import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
+import { ClerkProvider } from "@clerk/nextjs";
+
+import TanstackProvider from "@/lib/TanstackProvider/TanstackProvider";
+import RoleGuard from "@/components/auth/RoleGuard";
+
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.app",
-}
+  title: "FRIS-HR",
+  description: "FRIS HR PORTAL",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-      <body>
-        <Suspense fallback={<div>Loading...</div>}>
-          <AuthSessionProvider>{children}</AuthSessionProvider>
-        </Suspense>
-        <Analytics />
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <MantineProvider>
+          <ClerkProvider
+            appearance={{
+              elements: {
+                footer: "hidden",
+              },
+            }}
+          >
+            <TanstackProvider> {children}</TanstackProvider>
+          </ClerkProvider>
+        </MantineProvider>
+        <Toaster />
       </body>
     </html>
-  )
+  );
 }
