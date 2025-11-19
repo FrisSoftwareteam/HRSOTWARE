@@ -19,7 +19,7 @@ import { Label } from "./ui/label";
 import HorizontalLine from "./ui/horizontal";
 import { useState } from "react";
 import {
-  useAnswerStore,
+  // useAnswerStore,
   useGetAnswer,
   useGetUserProfile,
 } from "@/zustand/store";
@@ -43,7 +43,8 @@ export function renderFormFieldComponentManager({
   const [getFieldId, setFieldId] = useState(0);
   const [getFieldAns, setFieldAns] = useState("");
   const { answer, getAnswers } = useGetAnswer();
-  const { answers, addOrUpdateAnswer, clearAnswers } = useAnswerStore();
+  const [hodValue, setHodValue] = useState("");
+  // const { answers, addOrUpdateAnswer, clearAnswers } = useAnswerStore();
 
   switch (formField.type) {
     case FieldType.INPUT:
