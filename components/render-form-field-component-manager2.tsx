@@ -17,7 +17,7 @@ import { FormFieldWrapper } from "@/components/form-field-wrapper";
 import { Card, CardContent } from "./ui/card";
 import { Label } from "./ui/label";
 import HorizontalLine from "./ui/horizontal";
-import { useAnswerStore } from "@/zustand/store";
+// import { useAnswerStore } from "@/zustand/store";
 
 interface RenderFormFieldComponentProps {
   formField: FormFieldType;
@@ -35,7 +35,7 @@ export function renderFormFieldComponentManager2({
   formField,
   field,
 }: RenderFormFieldComponentProps) {
-  const { answers, addOrUpdateAnswer, clearAnswers } = useAnswerStore();
+  // const { answers, addOrUpdateAnswer, clearAnswers } = useAnswerStore();
   switch (formField.type) {
     case FieldType.INPUT:
       return (
@@ -111,11 +111,13 @@ export function renderFormFieldComponentManager2({
                     console.log(e.target?.value);
                     // formField.divisionalInput = e.target?.value;
                   }}
-                  className="flex flex-col space-y-1">
+                  className="flex flex-col space-y-1"
+                >
                   {formField.choices.map((choice, idx) => (
                     <FormItem
                       className="flex items-center space-x-3 space-y-0"
-                      key={idx}>
+                      key={idx}
+                    >
                       <FormControl>
                         <RadioGroupItem value={choice.value} />
                       </FormControl>
